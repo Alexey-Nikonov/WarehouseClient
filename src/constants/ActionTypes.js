@@ -1,0 +1,43 @@
+import keyMirror from 'keymirror';
+
+export default keyMirror({
+  LOGIN_USER_REQUEST: null,
+  LOGIN_USER_SUCCESS: null,
+  LOGIN_USER_FAIL: null,
+
+  REGISTER_USER_REQUEST: null,
+  REGISTER_USER_SUCCESS: null,
+  REGISTER_USER_FAIL: null,
+
+  SET_USER: null,
+
+  SAVE_USER_REQUEST: null,
+  SAVE_USER_SUCCESS: null,
+  SAVE_USER_FAIL: null,
+
+  GET_USER_REQUEST: null,
+  GET_USER_SUCCESS: null,
+  GET_USER_FAIL: null,
+
+  REMOVE_USER_REQUEST: null,
+  REMOVE_USER_SUCCESS: null,
+  REMOVE_USER_FAIL: null,
+
+  GET_TABLES_REQUEST: null,
+  GET_TABLES_SUCCESS: null,
+  GET_TABLES_FAIL: null,
+
+  GET_TABLE_DATA_REQUEST: null,
+  GET_TABLE_DATA_SUCCESS: null,
+  GET_TABLE_DATA_FAIL: null,
+
+  SAVE_TABLE_DATA_REQUEST: null,
+  SAVE_TABLE_DATA_SUCCESS: null,
+  SAVE_TABLE_DATA_FAIL: null,
+
+  EDIT_TABLE_DATA_REQUEST: null,
+  EDIT_TABLE_DATA_SUCCESS: null,
+  EDIT_TABLE_DATA_FAIL: null,
+
+  SET_CURRENT_TABLE: null
+});
