@@ -12,23 +12,14 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const signedOutRoutes = {
   SignIn: {
-    screen: SignInScreen,
-    // navigationOptions: {
-    //   title: 'SignIn'
-    // }
+    screen: SignInScreen
   },
   SignUp: {
-    screen: SignUpScreen,
-    // navigationOptions: {
-    //   title: 'SignUp'
-    // }
+    screen: SignUpScreen
   }
 };
 
 const signedOutOptions = {
-  // swipeEnabled: false,
-  // animationEnabled: true,
-  // mode: 'modal',
   headerMode: 'none',
   // transitionConfig: () => ({
   //   screenInterpolator: sceneProps => {
@@ -47,11 +38,7 @@ const signedOutOptions = {
 
   //     return { opacity, transform: [{ translateX }] }
   //   }
-  // }),
-  cardStyle: {
-    // shadowColor: 'transparent',
-    // shadowOpacity: 0
-  }
+  // })
 };
 
 const SignedOutNavigator = StackNavigator(signedOutRoutes, signedOutOptions);
@@ -74,12 +61,6 @@ const signedInRoutes = {
         <FontAwesome name="user" size={30} color={tintColor} />
       )
     }
-    // navigationOptions: {
-    //   tabBarLabel: "Profile",
-      // tabBarIcon: ({ tintColor }) => (
-      //   <FontAwesome name="user" size={30} color={tintColor} />
-      // )
-    // }
   }
 };
 
@@ -107,9 +88,7 @@ const rootRoutes = {
 
 const rootOptions = {
   headerMode: 'none',
-  animationEnabled: false,
-  // mode: 'modal',
-  // initialRouteName: signedIn ? 'SignedIn' : 'SignedOut'
+  animationEnabled: false
 };
 
 export default RootNavigator = StackNavigator(rootRoutes, rootOptions);

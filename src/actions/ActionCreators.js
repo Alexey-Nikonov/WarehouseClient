@@ -277,6 +277,121 @@ export function editTableDataAsync(token, route, data, id) {
   }
 }
 
+export function deleteTableDataAsync(token, route, id) {
+  return function(dispatch) {
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type: ActionTypes.DELETE_TABLE_DATA_REQUEST
+      });
+
+      Service.deleteTableData(token, route, id)
+        .then(response => {
+          dispatch({
+            type: ActionTypes.DELETE_TABLE_DATA_SUCCESS,
+            payload: response
+          });
+
+          getTableDataAsync(token, route)(dispatch)
+            .then(() => {
+              resolve(response)
+            });
+        })
+        .catch(error => {
+          dispatch({
+            type: ActionTypes.DELETE_TABLE_DATA_FAIL,
+            payload: error
+          });
+
+          reject(error);
+        });
+    });
+  }
+}
+
+export function getTheMostValuableCustomerAsync(token) {
+  return function(dispatch) {
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type: ActionTypes.GET_THE_MOST_VALUABLE_CUSTOMER_REQUEST
+      });
+
+      Service.getTheMostValuableCustomer(token)
+        .then(response => {
+          dispatch({
+            type: ActionTypes.GET_THE_MOST_VALUABLE_CUSTOMER_SUCCESS,
+            payload: response
+          });
+
+          resolve(response);
+        })
+        .catch(error => {
+          dispatch({
+            type: ActionTypes.GET_THE_MOST_VALUABLE_CUSTOMER_FAIL,
+            payload: error
+          });
+
+          reject(error);
+        });
+    });
+  }
+}
+
+export function getFiveTheMostPopularGoodsAsync(token) {
+  return function(dispatch) {
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type: ActionTypes.GET_FIVE_THE_MOST_POPULAR_GOODS_REQUEST
+      });
+
+      Service.getFiveTheMostPopularGoods(token)
+        .then(response => {
+          dispatch({
+            type: ActionTypes.GET_FIVE_THE_MOST_POPULAR_GOODS_SUCCESS,
+            payload: response
+          });
+
+          resolve(response);
+        })
+        .catch(error => {
+          dispatch({
+            type: ActionTypes.GET_FIVE_THE_MOST_POPULAR_GOODS_FAIL,
+            payload: error
+          });
+
+          reject(error);
+        });
+    });
+  }
+}
+
+export function getThreeTheMostValuableProvidersAsync(token) {
+  return function(dispatch) {
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type: ActionTypes.GET_THREE_THE_MOST_VALUABLE_PROVIDERS_REQUEST
+      });
+
+      Service.getThreeTheMostValuableProviders(token)
+        .then(response => {
+          dispatch({
+            type: ActionTypes.GET_THREE_THE_MOST_VALUABLE_PROVIDERS_SUCCESS,
+            payload: response
+          });
+
+          resolve(response);
+        })
+        .catch(error => {
+          dispatch({
+            type: ActionTypes.GET_THREE_THE_MOST_VALUABLE_PROVIDERS_FAIL,
+            payload: error
+          });
+
+          reject(error);
+        });
+    });
+  }
+}
+
 export function setCurrentTable(tableInfo) {
   return {
     type: ActionTypes.SET_CURRENT_TABLE,

@@ -2,7 +2,6 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import RootNavigator from './router';
 
-// import mainReducer from './resources/mainReducer';
 import mainReducer from './reducers/index';
 
 const navReducer = (state, action) => {

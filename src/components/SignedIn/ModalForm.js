@@ -13,31 +13,18 @@ class ModalForm extends PureComponent {
     };
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('len', Object.keys(nextProps.editedItem).length)
-
-  //   this.setState({
-  //     isEditing: !!Object.keys(nextProps.editedItem).length,
-  //   });
-  // }
-
   closeHandler = (isEditing) => {
-    const { editItem, addItem } = this.props;
+    const { editedItem, editItem, addItem } = this.props;
 
     if (isEditing) {
-      // console.log(this.state.newItem);
-      editItem(this.state.newItem, editItem.id);
+      editItem(this.state.newItem, editedItem.id);
     } else {
-      // console.log(this.state.newItem);
       addItem(this.state.newItem);
     }
   }
 
   render() {
-    const { isVisible, editedItem, itemHeaders } = this.props;
-    // console.log('IS EDITING', this.state.isEditing)
-    console.log('editedItem', editedItem)
-
+    const { isVisible, editedItem, toggleModalForm, itemHeaders } = this.props;
     const isEditing = !!Object.keys(editedItem).length;
 
     return (
@@ -58,26 +45,37 @@ class ModalForm extends PureComponent {
               titleStyle={styles.titleText}
               containerStyle={styles.modalContent}
               bottomContent={
-                <CustomButton
-                  withoutFeedback={false}
-                  buttonStyle={styles.closeButton}
-                  title={isEditing ? 'Сохранить' : 'Добавить'}
-                  titleStyle={styles.buttonText}
-                  onPress={this.closeHandler.bind(null, isEditing)}
-                />
+                <View style={styles.bottomButtonsContainer}>
+                  <CustomButton
+                    withoutFeedback={false}
+                    buttonStyle={[styles.bottomButton, styles.finishButton]}
+                    title={isEditing ? 'Сохранить' : 'Добавить'}
+                    titleStyle={styles.buttonText}
+                    onPress={this.closeHandler.bind(null, isEditing)}
+                  />
+                  <CustomButton
+                    withoutFeedback={false}
+                    buttonStyle={[styles.bottomButton, styles.closeButton]}
+                    title={'Закрыть'}
+                    titleStyle={styles.buttonText}
+                    onPress={toggleModalForm.bind(null, {})}
+                  />
+                </View>
               }
             >
               {
                 isEditing ?
                 itemHeaders.map((property, index) => {
                   return (
-                    <View>
-                      <Text>{property}</Text>
+                    property === "id" ?
+                    null
+                    :
+                    <View key={index}>
+                      <Text style={styles.editedProperty}>{property.toUpperCase()}</Text>
                       <TextInput
-                        key={index}
                         style={styles.input}
-                        defaultValue={editedItem[property]}
-                        onChangeText={value => console.log(value)}
+                        defaultValue={editedItem[property].toString()}
+                        onChangeText={value => this.setState({ newItem: Object.assign(this.props.editedItem, { [property]: value }) })}
                       />
                     </View>
                   );
@@ -85,6 +83,9 @@ class ModalForm extends PureComponent {
                 :
                 itemHeaders.map((property, index) => {
                   return (
+                    property === "id" ?
+                    null
+                    :
                     <TextInput
                       key={index}
                       style={styles.input}
@@ -135,19 +136,35 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#bdc3c7'
   },
-  closeButton: {
-    backgroundColor: '#e74c3c',
+  bottomButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  bottomButton: {
     borderRadius: 10,
     paddingTop: 8,
     paddingBottom: 8,
     paddingLeft: 30,
-    paddingRight: 30
+    paddingRight: 30,
+    marginLeft: 5,
+    marginRight: 5
+  },
+  finishButton: {
+    backgroundColor: '#4CAF50'
+  },
+  closeButton: {
+    backgroundColor: '#f39c12'
   },
   buttonText: {
     fontSize: 17,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center'
+  },
+  editedProperty: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    paddingLeft: 25
   },
   input: {
     backgroundColor: '#f9f9f9',
@@ -157,6 +174,5 @@ const styles = StyleSheet.create({
     margin: 10
   }
 });
-
 
 export default ModalForm;

@@ -35,7 +35,6 @@ function logHOC(WrappedComponent) {
             />
           </View>
 
-
           <WrappedComponent {...this.props} />
 
           <Modal

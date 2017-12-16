@@ -41,10 +41,7 @@ const ProfileScreen = ({ navigation, removeUser, user }) => {
           <Text style={styles.infoTextBold}>Username: </Text>{user.username}
         </Text>
         <Text style={styles.infoText}>
-          <Text style={styles.infoTextBold}>Role: </Text>{user.username}
-        </Text>
-        <Text style={styles.infoText}>
-          <Text style={styles.infoTextBold}>Token: </Text>{user.token}
+          <Text style={styles.infoTextBold}>Role: </Text>{user.role}
         </Text>
       </View>
       </CustomContainer>

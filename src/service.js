@@ -1,5 +1,5 @@
 const Service = (() => {
-  const _serverAddress = 'http://10.19.17.250:3000/api';
+  const _serverAddress = 'http://10.17.34.50:3000/api';
 
   function _login(login, password) {
     return new Promise((resolve, reject) => {
@@ -18,8 +18,6 @@ const Service = (() => {
       })
       .then(r => r.json())
       .then(response => {
-        // console.log('Response', response);
-        // const data = JSON.parse(response._bodyInit);
         resolve(response);
       })
       .catch(error => {
@@ -46,7 +44,6 @@ const Service = (() => {
       })
       .then(r => r.json())
       .then(response => {
-        // const data = JSON.parse(response._bodyInit);
         resolve(response);
       })
       .catch(error => {
@@ -137,13 +134,97 @@ const Service = (() => {
     })
   }
 
+  function _deleteTableData(token, route, id) {
+    return new Promise((resolve, reject) => {
+      fetch(`${_serverAddress}/${route}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(r => r.json())
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+    })
+  }
+
+  function _getTheMostValuableCustomer(token) {
+    return new Promise((resolve, reject) => {
+      fetch(`${_serverAddress}/clients/GetTheMostValuableCustomer`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(r => r.json())
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+    })
+  }
+
+  function _getFiveTheMostPopularGoods(token) {
+    return new Promise((resolve, reject) => {
+      fetch(`${_serverAddress}/goods/GetFiveTheMostPopularGoods`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(r => r.json())
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+    })
+  }
+
+  function _getThreeTheMostValuableProviders(token) {
+    return new Promise((resolve, reject) => {
+      fetch(`${_serverAddress}/providers/GetThreeTheMostValuableProviders`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(r => r.json())
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+    })
+  }
+
   return {
     login: _login,
     register: _register,
     getTables: _getTables,
     getTableData: _getTableData,
     saveTableData: _saveTableData,
-    editTableData: _editTableData
+    editTableData: _editTableData,
+    deleteTableData: _deleteTableData,
+    getTheMostValuableCustomer: _getTheMostValuableCustomer,
+    getFiveTheMostPopularGoods: _getFiveTheMostPopularGoods,
+    getThreeTheMostValuableProviders: _getThreeTheMostValuableProviders
   }
 })();
 

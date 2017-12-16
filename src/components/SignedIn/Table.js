@@ -16,22 +16,21 @@ class Table extends PureComponent {
   }
 
   addItemHandler = (data) => {
-    const { user, currentTable, saveTableData } = this.props;
-
+    const { user, currentTable, saveTableData, getTableData } = this.props;
     saveTableData(user.token, currentTable.route, data);
-    this.toggleModalForm();
   }
 
   editItemHandler = (data, id) => {
     const { user, currentTable, editTableData } = this.props;
-
     editTableData(user.token, currentTable.route, data, id);
+  }
 
-    this.toggleModalForm({});
+  deleteItemHandler = (id) => {
+    const { user, currentTable, deleteTableData } = this.props;
+    deleteTableData(user.token, currentTable.route, id);
   }
 
   toggleModalForm = (item) => {
-    console.log('After edit/add row', item)
     if (item) {
       this.setState({ editedItem: item });
     }
@@ -40,24 +39,37 @@ class Table extends PureComponent {
   }
 
   render() {
-    const { tableData, user } = this.props;
+    const { tableData, withoutButtons } = this.props;
     const itemHeaders = Object.keys(tableData[0]);
 
     return (
       <View style={styles.container}>
-        <TableHeader itemHeaders={itemHeaders} toggleModalForm={this.toggleModalForm} />
-        {
-          tableData.map((item, index) => (
-            <TableRow key={index} data={item} toggleModalForm={this.toggleModalForm} />
-          ))
-        }
-        <ModalForm
-          isVisible={this.state.isModalVisible}
-          addItem={this.addItemHandler}
-          editItem={this.editItemHandler}
-          editedItem={this.state.editedItem}
-          itemHeaders={itemHeaders}
+        <View style={styles.tableContainer}>
+          <TableHeader
+            itemHeaders={itemHeaders}
+            toggleModalForm={this.toggleModalForm}
+            withoutButtons={withoutButtons}
           />
+          {
+            tableData.map((item, index) => (
+              <TableRow
+              key={index}
+              data={item}
+              toggleModalForm={this.toggleModalForm}
+              deleteItemHandler={this.deleteItemHandler}
+              withoutButtons={withoutButtons}
+              />
+            ))
+          }
+          <ModalForm
+            isVisible={this.state.isModalVisible}
+            addItem={this.addItemHandler}
+            editItem={this.editItemHandler}
+            editedItem={this.state.editedItem}
+            toggleModalForm={this.toggleModalForm}
+            itemHeaders={itemHeaders}
+            />
+          </View>
       </View>
     );
   }
@@ -66,8 +78,12 @@ class Table extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tableContainer: {
     borderWidth: 1,
-    borderColor: '#000'
+    borderColor: '#616161'
   }
 });
 

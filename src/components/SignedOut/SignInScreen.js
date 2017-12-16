@@ -37,7 +37,6 @@ class SignInScreen extends PureComponent {
   componentWillMount() {
     this.props.getUser()
       .then(user => {
-        // console.log('!!!!!!!!!!', user)
         if (user.username && user.token && user.role) {
           this.props.navigation.navigate('SignedIn');
         }
@@ -66,12 +65,14 @@ class SignInScreen extends PureComponent {
           >
           <TextInput
             style={styles.input}
+            value={this.state.username}
             placeholder='Логин'
             ref={input => this.usernameInput = input}
             onChangeText={username => this.setState({ username })}
           />
           <TextInput
             style={styles.input}
+            value={this.state.password}
             placeholder='Пароль'
             secureTextEntry={true}
             ref={input => this.passwordInput = input}

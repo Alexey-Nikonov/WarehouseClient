@@ -1,17 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const TableItem = ({ children }) => (
+const TableItem = ({ children, textStyle }) => (
   <View style={styles.container}>
-    <Text>{children}</Text>
+    <Text style={textStyle}>{children}</Text>
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
-    width: 115,
+    width: 125,
     borderWidth: 1,
-    borderColor: '#000'
+    borderColor: '#616161',
+    padding: 10
   }
 });
 
